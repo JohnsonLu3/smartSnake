@@ -2,7 +2,7 @@ ArrayList<Player> playerLoc;      // player body pieces locations
 int cellSize = 5;
 int playArea = 800; 
 int offSet = 100;
-int scoreMul = 500;
+int scoreMul = 50;
 Collectable collectable;
 
 boolean start = false;
