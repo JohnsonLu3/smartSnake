@@ -15,7 +15,8 @@ class Player{
     this.y = y;
   }
   
- 
-  
+ void dead(){
+   reset();
+ }
   
 }
