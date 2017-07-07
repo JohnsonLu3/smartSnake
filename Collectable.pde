@@ -1,8 +1,5 @@
 class Collectable {
 
-  int i;  // grid cords
-  int j;  // grid cords
-
   int x;  // world cords
   int y;  // world cords
 
@@ -12,12 +9,17 @@ class Collectable {
     rollLoc();
 
     while (true) {
-      if (world[i][j] != 0) {
-        // space is occupied, REROLL
-        rollLoc();
-      } else {
-        break;
+      for (int i =0; i < playerLoc.size(); i++ ) {
+        Player cell = playerLoc.get(i);
+
+        if (cell.x == x && cell.y == y) {
+          // space is occupied, REROLL
+          rollLoc();
+        } else {
+          break;
+        }
       }
+      break;
     }
   }
 
@@ -29,10 +31,8 @@ class Collectable {
 
   void rollLoc() {
 
-    i = int(random(0, width/cellSize));
-    j = int(random(0, height/cellSize));
+    x = int(random(0, playArea/cellSize)) * cellSize + offSet;
+    y = int(random(0, playArea/cellSize)) * cellSize + offSet;
 
-    x = i * cellSize;
-    y = j * cellSize;
   }
 }

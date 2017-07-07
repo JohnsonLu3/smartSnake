@@ -1,6 +1,8 @@
-int[][] world;          // 0 : empty space, 1: player's body, 2 : collectable
-Cell[] playerLoc;      // player body pieces locations
+ArrayList<Player> playerLoc;      // player body pieces locations
 int cellSize = 5;
+int playArea = 800; 
+int offSet = 100;
+int scoreMul = 500;
 Collectable collectable;
 
 boolean collected;
@@ -8,90 +10,132 @@ boolean collected;
 int score;
 int dist;
 
-Player player;
-
 void setup() {
-  frameRate(10);
-  size(500, 500);
-  background(255);
+  frameRate(15);
+  size(1000, 1000);
+  background(125);
   score = 0;
   dist = 0;
   collected = true;
-  player = new Player();
-  world = new int[width/cellSize][height/cellSize];
+  Player player = new Player();
+  playerLoc = new ArrayList<Player>();
+  playerLoc.add(player);
 }
 
 void draw() {
-  background(255);
+
+  background(125);
+  
+  //Check Dead?
+  if (playerLoc.get(0).x < 0 + offSet || playerLoc.get(0).x > width - offSet || playerLoc.get(0).y < 0 + offSet || playerLoc.get(0).y > height - offSet)
+    playerLoc.get(0).dead();
+  
+  for(int i = 1; i < playerLoc.size(); i++){
+    // check if player collides with itself
+    if(playerLoc.get(0).x == playerLoc.get(i).x && playerLoc.get(0).y == playerLoc.get(i).y)
+      playerLoc.get(0).dead();
+  }
+    
+  //draw playArea
+  fill(255);
+  noStroke();
+  rect(offSet, offSet, playArea, playArea);
+
 
   //draw player
   fill(0);
-  rect(player.x, player.y, cellSize, cellSize);
+
+  //draw player body and head
+  for (int i =0; i < playerLoc.size(); i++) {
+    rect(playerLoc.get(i).x, playerLoc.get(i).y, cellSize, cellSize);
+  }
 
   //draw collectable
   spawnCollectiable();
 
-  println("Score: " + score);
 
-  fill(125);
+  fill(0, 255, 0);
   rect(collectable.x, collectable.y, cellSize, cellSize);
 
 
-  //Check Dead?
-  if (player.x < 0 || player.x > width || player.y < 0 || player.y > height)
-    player.dead();
-
   //Check if collected?
-  if (player.x == collectable.x && player.y == collectable.y) {
+  if (playerLoc.get(0).x == collectable.x && playerLoc.get(0).y == collectable.y) {
     collectable.collected();
-    score += 500;
+    score += scoreMul;
+
+    //add a new cell to PlayerLoc
+    Player pCell = new Player();
+    playerLoc.add(pCell);
+    
+    //update body Loctaions EXCULDE HEAD
+    for (int i = playerLoc.size(); i > 1 ; i--) {
+      playerLoc.get(i-1).x = playerLoc.get(i-2).x;
+      playerLoc.get(i-1).y = playerLoc.get(i-2).y;
+    }
+
+    //update Head Location
+    playerLoc.get(0).movement();
+  } else {
+    //update body Loctaions EXCULDE HEAD
+    for (int i =playerLoc.size(); i > 1 ; i--) {
+      playerLoc.get(i-1).x = playerLoc.get(i-2).x;
+      playerLoc.get(i-1).y = playerLoc.get(i-2).y;
+    }
+
+    //update Head Location
+    playerLoc.get(0).movement();
   }
-
-
-
-  // Movement
-  switch(player.direction) {
-  case 1:   
-    player.y -= cellSize;
-    break;
-  case 2:
-    player.x += cellSize;
-    break;
-  case 3:
-    player.y += cellSize;
-    break;
-  case 4:
-    player.x -= cellSize;
-    break;
-  default:
-    break;
-  }
-
-  //record player location
 }
 
 void keyPressed() {
 
-  if (key == 'r') {
+  //DEBUG Keys
+  switch(key) {
+  case 'r':
     println("reseting...");
     reset();
+    break;
+  case 's':
+    println("Score: " + score + "    playerSize = " + playerLoc.size());
+
+    break;
+  case '<':
+    frameRate(frameRate - 1);
+
+    break;
+  case '>':
+    frameRate(frameRate + 1);
+
+    break;
+  case 'i':
+    for (int i =0; i < playerLoc.size(); i++) {
+      println("[" + i + "] " + "x = " + playerLoc.get(i).x + "  y = " + playerLoc.get(i).y);
+    }
+    break;
   }
+
+
+  int direction = 0;
 
   if (key == CODED) {
     switch(keyCode) {
     case UP:   
-      player.direction = 1;
+      direction = 1;
       break;
     case DOWN:
-      player.direction = 3;
+      direction = 3;
       break;
     case LEFT:
-      player.direction = 4;
+      direction = 4;
       break;
     case RIGHT:
-      player.direction = 2;
+      direction = 2;
       break;
     }
+  }
+
+  for (int i = 0; i < playerLoc.size(); i++) {
+    playerLoc.get(i).changeDirection(direction);
   }
 }
 
@@ -110,6 +154,7 @@ void reset() {
   dist = 0;
   collected = true;
 
-  player = new Player();
-  world = new int[width/cellSize][height/cellSize];
+  Player player = new Player();
+  playerLoc = new ArrayList<Player>();
+  playerLoc.add(player);
 }
