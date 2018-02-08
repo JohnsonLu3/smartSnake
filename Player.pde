@@ -41,4 +41,5 @@ class Player {
   void changeDirection(int dir) {
     direction = dir;
   }
+  
 }
