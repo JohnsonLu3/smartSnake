@@ -4,7 +4,7 @@ void checkDead(){
   if(hungerTimer <= 0)
      playerLoc.get(0).dead();
 
-  if (playerLoc.get(0).x < 0 + offSet || playerLoc.get(0).x > width - offSet || playerLoc.get(0).y < 0 + offSet || playerLoc.get(0).y > height - offSet)
+  if (playerLoc.get(0).x < 0 + offSet || playerLoc.get(0).x > width - offSet-1 || playerLoc.get(0).y < 0 + offSet || playerLoc.get(0).y > height - offSet-1)
     playerLoc.get(0).dead();
 
   for (int i = 1; i < playerLoc.size(); i++) {
@@ -19,6 +19,7 @@ void checkCollected(){
   if (playerLoc.get(0).x == collectable.x && playerLoc.get(0).y == collectable.y) {
     collectable.collected();
     score += scoreMul;
+    hungerTimer = HUNGERTIMER;
 
     //add a new cell to PlayerLoc
     Player pCell = new Player();
@@ -74,7 +75,7 @@ void reset() {
   playerLoc = new ArrayList<Player>();
   playerLoc.add(player);
   
-  hungerTimer = 30;
+  hungerTimer = HUNGERTIMER;
 }
 
 void resetGrid() {

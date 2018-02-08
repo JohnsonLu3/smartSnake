@@ -25,25 +25,25 @@ void keyPressed() {
 
 
   int direction = 0;
-  //if (key == CODED) {
+  if (key == CODED) {
 
-  //  start = true;
+    start = true;
 
-  //  switch(keyCode) {
-  //  case UP:   
-  //    direction = 1;
-  //    break;
-  //  case DOWN:
-  //    direction = 3;
-  //    break;
-  //  case LEFT:
-  //    direction = 4;
-  //    break;
-  //  case RIGHT:
-  //    direction = 2;
-  //    break;
-  //  }
-  //}
+    switch(keyCode) {
+    case UP:   
+      direction = 1;
+      break;
+    case DOWN:
+      direction = 3;
+      break;
+    case LEFT:
+      direction = 4;
+      break;
+    case RIGHT:
+      direction = 2;
+      break;
+    }
+  }
 
   for (int i = 0; i < playerLoc.size(); i++) {
     playerLoc.get(i).changeDirection(direction);
