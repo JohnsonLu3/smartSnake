@@ -1,5 +1,9 @@
 void checkDead(){
   //Check Dead?
+  
+  if(hungerTimer <= 0)
+     playerLoc.get(0).dead();
+
   if (playerLoc.get(0).x < 0 + offSet || playerLoc.get(0).x > width - offSet || playerLoc.get(0).y < 0 + offSet || playerLoc.get(0).y > height - offSet)
     playerLoc.get(0).dead();
 
@@ -69,6 +73,8 @@ void reset() {
   Player player = new Player();
   playerLoc = new ArrayList<Player>();
   playerLoc.add(player);
+  
+  hungerTimer = 30;
 }
 
 void resetGrid() {
