@@ -43,5 +43,5 @@ void renderText() {
   text(distText, 50, 84);
   
   String timeText = "Hunger: " + nf((float)hungerTimer, 2, 2);
-  text(timeText, 700, 50);
+  text(timeText, 800, 50);
 }

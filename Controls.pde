@@ -18,9 +18,15 @@ void keyPressed() {
     }
     break;
   case 'f':
-    int [] foodLocation = whereIsFood();
-    print("x: " + foodLocation[0]+ " y: "+ foodLocation[1]);
+    int dist2Food = distanceToFood();
+    println("Food is : " + dist2Food + " units away");
     break;
+  case 'd':
+    int[]dist2Wall = distanceToWalls();
+    println("Distance to wall. [N,E,S,W]");
+    for(int d: dist2Wall){
+      println(d);
+    }
   }
 
 
