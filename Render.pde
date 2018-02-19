@@ -9,7 +9,7 @@ void drawPlayArea(){
 
 void drawPlayerHead(){
   //draw player HEAD
-  fill(255,0,0);
+  fill(headColor);
   rect(playerLoc.get(0).x, playerLoc.get(0).y, cellSize, cellSize);
   //print("x: " + ((playerLoc.get(0).x - offSet)/cellSize) + "y: " + ((playerLoc.get(0).y - offSet)/cellSize) + "\n" );
   grid[((playerLoc.get(0).x - offSet)/cellSize)][((playerLoc.get(0).y - offSet)/cellSize)] = 1;
@@ -18,7 +18,7 @@ void drawPlayerHead(){
 void drawPlayerBody(){
   //draw player body
   for (int i =1; i < playerLoc.size(); i++) {
-    fill(0);
+    fill(bodyColor);
     rect(playerLoc.get(i).x, playerLoc.get(i).y, cellSize, cellSize);
     grid[((playerLoc.get(i).x - offSet)/cellSize)][((playerLoc.get(i).y - offSet)/cellSize)] = 1;
   }

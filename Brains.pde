@@ -13,22 +13,53 @@ int distanceToFood(){
   return dist2Food;
 }
 
-int[] distanceToWalls(){
-  int [] distToWalls = new int [4];  // [N,E,S,W]
+int[] distanceToObstacle(){
+  int [] distToObs = new int[]{-1,-1,-1,-1};  // [N,E,S,W]
   
   int playerX = playerLoc.get(0).x;
   int playerY = playerLoc.get(0).y;
   
   //N
-  distToWalls[0] = playerY - offSet;
-  //E
-  distToWalls[1] = playArea + offSet - playerX; 
-  //S
-  distToWalls[1] = playArea + offSet - playerY;
-  //W
-  distToWalls[1] = playerX - offSet;
+  for(int y = playerY; y > offSet; y--){
+    if(get(playerX, y) == bodyColor){
+      distToObs[0] = playerY - y;  
+      break;
+    }
+  }
+  if(distToObs[0] == -1)
+    distToObs[0] = playerY - offSet;
   
-  return distToWalls;
+  //E
+    for(int x = playerX; x < (playArea+offSet); x++){
+    if(get(x, playerY) == bodyColor){
+      distToObs[1] = x - playerX;  
+      break;
+    }
+  }
+  if(distToObs[1] == -1)
+    distToObs[1] = playArea + offSet - playerX; 
+  
+  //S
+    for(int y = playerY; y < (offSet + playArea); y++){
+    if(get(playerX, y) == bodyColor){
+      distToObs[2] = y - playerY;  
+      break;
+    }
+  }
+  if(distToObs[2] == -1)
+    distToObs[2] = playArea + offSet - playerY;
+  
+  //W
+    for(int x = playerX; x > offSet; x--){
+    if(get(x, playerY) == bodyColor){
+      distToObs[3] = playerX - x;  
+      break;
+    }
+  }
+  if(distToObs[3] == -1)
+    distToObs[3] = playerX - offSet;
+  
+  return distToObs;
 }
 
 
@@ -42,6 +73,7 @@ int[] distanceToWalls(){
 6. Dist from Food
 7. Overall Distance
 8. Score
+9. Body Piece location??????
 
 How will it learn that going closer to food is a good thing? 
 */

@@ -22,8 +22,8 @@ void keyPressed() {
     println("Food is : " + dist2Food + " units away");
     break;
   case 'd':
-    int[]dist2Wall = distanceToWalls();
-    println("Distance to wall. [N,E,S,W]");
+    int[]dist2Wall = distanceToObstacle();
+    println("Distance to Obstacle. [N,E,S,W]");
     for(int d: dist2Wall){
       println(d);
     }

@@ -29,7 +29,9 @@ void draw() {
   drawCollectable();
 
   checkCollected();
-  randomlyMove();
+  //randomlyMove();
+  
+  //println(hex(get(500,500)));
   if (start)
     dist++;
   else
