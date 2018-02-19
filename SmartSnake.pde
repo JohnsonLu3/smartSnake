@@ -30,6 +30,7 @@ void draw() {
 
   checkCollected();
   //randomlyMove();
+  println(getRandomWeight());
   
   //println(hex(get(500,500)));
   if (start)

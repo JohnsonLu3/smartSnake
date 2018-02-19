@@ -18,7 +18,7 @@ int[] distanceToObstacle(){
   
   int playerX = playerLoc.get(0).x;
   int playerY = playerLoc.get(0).y;
-  
+   
   //N
   for(int y = playerY; y > offSet; y--){
     if(get(playerX, y) == bodyColor){
@@ -77,3 +77,12 @@ int[] distanceToObstacle(){
 
 How will it learn that going closer to food is a good thing? 
 */
+
+double activationFunction(double val){
+  double output = 0.0f;
+  return output;
+}
+
+double getRandomWeight(){
+  return random(-1,1);
+}
